@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/d57c0f6bdb.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Balthazar" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Bitter&display=swap" rel="stylesheet">
+    <title>Document</title>
+</head>
+
+<body>
+    <audio id="basket">
+        <source src="basket.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio id="cheering">
+        <source src="Cheering.mp3" type="audio/mpeg">
+    </audio>
+    
+    <audio id="countdown">
+        <source src="Countdown.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="container">
+        <div id="upperBar">
+            <div id="divPoints">You have: <span id="points">0</span> points</div>
+
+            <div id="time">You have: <span id="timer">0</span> seconds remaining!</div>
+        </div>
+        <div id="screen"></div>
+        <div id="footer">
+            <div id="level"></div>
+            <div id="startButton">Start</div>
+            <div id="ballsLeft"></div>
+        </div>
+
+    </div>
+
+
+    <script src="render.js"></script>
+    <script src="logic.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
