@@ -6,12 +6,11 @@ let timer;
 
 const startBtnFunc = function () {
     renderer.renderFrogs(game.makeNewFrogs(gameLevel));
-    timer = setInterval(game.updateTimer, 1000);
+    timer = setInterval(game.updateTimer, 250);
     game.updateTimer()
     game.updatePoints()
     if (game.checkIfWin(game.getFrogs())) {
         gameLevel++;
-        cancelInterval(timer);
     }
 }
 

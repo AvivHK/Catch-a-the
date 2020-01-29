@@ -5,6 +5,7 @@ const playGame = function () {
     let frogs = []
     let timeLeft = 0;
     let points = 0;
+    let flag = false;
 
     function getFrogs() {
         return frogs
@@ -14,7 +15,6 @@ const playGame = function () {
     function makeNewFrogs(gameLevel) {
         for (let i = 0; i < gameLevel; i++) {
             frogs[i] = { id: i, color: getRandomColor(), position: getRandomPosition() }
-
         }
         if (gameLevel < 6) {
             timeLeft += 4
@@ -22,6 +22,8 @@ const playGame = function () {
         else {
             timeLeft += Math.round(gameLevel / 3)
         }
+        flag = true;
+        flag2 = true;
         return frogs
     }
 
@@ -31,7 +33,7 @@ const playGame = function () {
                 frogs.splice(i, 1)
                 points++;
                 $("#points").html(points);
-                playSound(true,timeLeft)
+                playSound(true, timeLeft)
             }
         }
     }
@@ -47,12 +49,29 @@ const playGame = function () {
     }
 
     function updateTimer() {
-        timeLeft = timeLeft - 1;
-        if (timeLeft >= 0) {
+        timeLeft = timeLeft - 0.25;
+
+        if (timeLeft > 3) {
+            $("#time").css("color", "black")
+        }
+        else {
+            if ((timeLeft - Math.floor(timeLeft) == 0) || (timeLeft - Math.floor(timeLeft)) == 0.5) {
+                $("#time").css('color', "red")
+                $('#timer').html(Math.ceil(timeLeft));
+                flag = false
+            }
+            else {
+                $("#time").css('color', "blue")
+                $('#timer').html(Math.ceil(timeLeft));
+                flag = true
+            }
+        }
+
+        if (((timeLeft >= 0) && (Math.round(timeLeft) - timeLeft == 0))) {
             $('#timer').html(timeLeft);
         }
 
-        else {
+        else if (timeLeft < 0) {
             clearInterval(timer);
             points = 0
             gameLevel = 1
@@ -71,11 +90,11 @@ const playGame = function () {
         let countdown = document.getElementById("countdown")
         let cheering = document.getElementById("cheering")
 
-        if(!sound){
-            oldLevel =level
+        if (!sound) {
+            oldLevel = level
             cheering.play()
         }
-        else if(timeLeft == 2){
+        else if (timeLeft == 2) {
             countdown.play()
         }
         else if (points % 4 == 0) {
@@ -83,7 +102,7 @@ const playGame = function () {
         }
     }
 
-    const updatePoints = () =>  $("#points").html(points);
+    const updatePoints = () => $("#points").html(points);
 
 
     return { getFrogs, removeFrog, makeNewFrogs, checkIfWin, updateTimer, updatePoints }
@@ -95,11 +114,11 @@ function getRandomPosition() {
     let bodyWidth = document.getElementById("screen").clientWidth;
     let bodyHeight = document.getElementById("screen").clientHeight;
     let upperBar = document.getElementById("upperBar").clientHeight;
-    while ((randPosY < upperBar) || (1.2*randPosY > upperBar + bodyHeight)) {
+    while ((randPosY < upperBar) || (1.2 * randPosY > upperBar + bodyHeight)) {
         randPosY = Math.floor((Math.random() * (bodyHeight)));
-        
+
     }
-    while ((1.15*randPosX > bodyWidth)) {
+    while ((1.15 * randPosX > bodyWidth)) {
         randPosX = Math.floor((Math.random() * (bodyWidth)));
     }
     let arr = [randPosX, randPosY]
@@ -123,14 +142,3 @@ function getRandomColor() {
 }
 
 
-const toDoEvreyOneSeconed = function () {
-    timeLeft = timeLeft - 1;
-    if (timeLeft > 0)
-        $('#timer').html(timeLeft);
-    else {
-        $("#screen").empty();
-        $("#screen").append("<div id='gameOver'></div>")
-        gameOver();
-    }
-    console.log(timer)
-}
